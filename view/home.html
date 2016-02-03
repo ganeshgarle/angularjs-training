@@ -1,0 +1,33 @@
+
+  <div ng-show="expenseData.length != 0">
+      <label>Search: <input ng-model="search.$"></label>&nbsp;&nbsp;<label> Balance:{{expneseServiceData.currentBalance}}</label>&nbsp;&nbsp;
+    <label>Total Income: </label>{{expMgt.income}}&nbsp;&nbsp;
+    <label>Total Expense: </label>{{expMgt.expense}}
+    <table class="table">
+        <tr>
+          <th class="table-head">.</th>
+          <th  class="table-head">Type</th>
+          <th  class="table-head">Payer</th>
+          <th  class="table-head">Payee</th>
+          <th  class="table-head">Category</th>
+          <th  class="table-head">Amount</th>
+          <th  class="table-head">Date</th>
+          <th  class="table-head">Mode Of Payment</th>
+          <th  class="table-head">Note</th>
+            <th  class="table-head">Delete</th>
+
+        </tr>
+        <tr ng-repeat="exp in expenseData | filter:search:strict">
+          <td>{{$index + 1}}</td>
+          <td >{{exp.type}}</td>
+          <td >{{exp.payer}}</td>
+          <td >{{exp.payee}}</td>
+          <td >{{exp.categorytype}}</td>
+          <td >{{exp.amount}}</td>
+          <td >{{exp.date}}</td>
+          <td >{{exp.modeofpayment}}</td>
+          <td >{{exp.note}}</td>
+          <td><button ng-click="deleteExpenseData(exp,exp.type)">Delete</button></td>
+        </tr>
+    </table>
+  </div>

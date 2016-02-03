@@ -1,11 +1,10 @@
 'use strict';
 
 app.service('expneseMgtService',function( $http,$q ){
-    var mgtData = {};
-     var api = {};
-      var statementDetails;
+    var statementDetails;
+
     this.saveData = function( data ){
-      mgtData = data;
+      statementDetails = data;
       return data;
     }
 
