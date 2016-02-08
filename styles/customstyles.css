@@ -39,3 +39,6 @@ li a:hover {
     color:#FF0000;
 
 }
+li:hover {
+    background: #BDBDBE;
+}

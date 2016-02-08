@@ -4,7 +4,7 @@ app.config(['$routeProvider',
     $routeProvider.
       when('/', {
         templateUrl: 'view/home.html',
-        controller: 'expManagerCtrl',
+        controller: 'expManagerCtrl'
         /*resolve: {
             myfun:resolvefunction
         }*/
@@ -22,7 +22,7 @@ app.config(['$routeProvider',
       });
 }]);
 
-app.config(function (movieProvider) {
+/*app.config(function (movieProvider) {
   var datds = movieProvider.setVersion('Reloaded');
   console.log( datds );
 });
@@ -56,3 +56,8 @@ function resolvefunction($http,$q){
                 return deferred.promise;
 
 };
+*/
+$("li").click(function(){
+    $("li").removeClass("active");
+    $(this).addClass("active");
+  });

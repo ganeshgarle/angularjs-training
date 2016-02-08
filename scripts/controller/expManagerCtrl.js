@@ -1,45 +1,48 @@
-app.controller('expManagerCtrl', function( $scope, expneseMgtService,expManagementFactory ){
-  console.log('expManagerCtrl');
+app.controller('expManagerCtrl', ['$scope','expneseMgtService','expManagementFactory', function( $scope, expneseMgtService,expManagementFactory ){
     $scope.expDetails = {};
     $scope.buttonValue = "Add";
-
     $scope.categoryType = [ 'Rent', 'Light Bill', 'Internet Bill', 'Recharge', 'Other' ];
     $scope.modeofPayment = [ 'Credit Card', 'Cash', 'Net Banking' ];
     $scope.expenseData = [];
     var errorIs = true;
-
-
     var transactionId = 0;
     $scope.expneseServiceData = {};
     $scope.expenseData;
-    if( expneseMgtService.get() == undefined ){
-        var promise =expneseMgtService.getjson()
+    $scope.currentPage = "home";
+    if( expneseMgtService.getTransactionData() == undefined ){
+       /* var promise =expneseMgtService.getjson()
         .then(function(data) {
-          $scope.expneseServiceData = data;
-           expManagementFactory.incomeDetailFun($scope,"home");
+
         }, function(error) {
            return error;
         })
         .finally(function() {
           console.log('Finished at:', new Date())
         });
+*/
+        expneseMgtService.getTransactionDataFromMockApi().then(function(data){
+          console.log(data);
+          $scope.expneseServiceData = data;
+           expManagementFactory.incomeDetailFun($scope,$scope.currentPage);
+        });
+
     }else{
-        $scope.expneseServiceData = expneseMgtService.get();
-        expManagementFactory.incomeDetailFun($scope,"home");
+        $scope.expneseServiceData = expneseMgtService.getTransactionData();
+        expManagementFactory.incomeDetailFun($scope,$scope.currentPage);
     }
 
-    $scope.deleteExpenseData = function( obj,type ){
-      expManagementFactory.deleteEntry($scope,obj,type,"home");
+    $scope.deleteTransaction = function( obj,type ){
+      expManagementFactory.deleteTransaction($scope,obj,type,$scope.currentPage);
     }
     var editValue = "";
-    $scope.editExpenseData = function( obj ){
+    $scope.updateTransaction = function( obj ){
       $scope.buttonValue = "Edit";
       $scope.expDetails = obj;
       $scope.type = $scope.expDetails.type;
       editValue = obj.amount;
     }
 
-})
+}]);
 /*app.loadData = function( $q,$http ){
 
   var defer = $q.defer();

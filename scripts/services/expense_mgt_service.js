@@ -3,12 +3,12 @@
 app.service('expneseMgtService',function( $http,$q ){
     var statementDetails;
 
-    this.saveData = function( data ){
+    this.saveTransaction = function( data ){
       statementDetails = data;
       return data;
     }
 
-      this.get = function () {
+      this.getTransactionData = function () {
           return statementDetails;
       };
 
@@ -21,12 +21,13 @@ app.service('expneseMgtService',function( $http,$q ){
 */
 
      var deferred = $q.defer();
-      this.getjson = function () {
+      this.getTransactionDataFromMockApi = function () {
           $http({
               method: 'GET',
               url: 'mock_api/expensedata.json'
           }).success(function (data) {
             statementDetails =  data;
+            console.log(statementDetails);
               deferred.resolve(data);
           }).error(function (msg) {
               deferred.reject(msg+"error message:");

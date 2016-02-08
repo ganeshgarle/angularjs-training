@@ -1,5 +1,5 @@
   <div class="container">
-        <form name="expensedetailForm">
+        <form name="expensedetailForm" ng-show="showForm || expenseData.length == 0">
    <!--      <p>
 
               <div ng-repeat="exp in expenceType">
@@ -53,14 +53,16 @@
       <span class="error-color" ng-show="errors.note">Note required</span>
     </p>
     <p>
-      <input type="submit" class="btn default" ng-click="addIncome()" value="{{buttonValue}}" />
+      <input type="submit" class="btn default" ng-click="addTransaction()" value="{{buttonValue}}" />
        <input type="submit" class="btn cancel" ng-click="clear()" value="Clear" />
+       <input type="submit" class="btn cancel" ng-click="hideTransactionForm()" value="Cancel" />
     </p>
   </form>
 <div ng-show="expenseData.length != 0">
-    <label>Search: <input ng-model="search.$"></label>&nbsp;&nbsp;&nbsp;<label>Current Balance:{{ expneseServiceData.currentBalance}}</label>
-     <label ng-show="type == 'Income'">Total Income - {{expMgt.income}} </label>
-      <label ng-show="type == 'Expense'">Total Expense -  {{expMgt.expense}}</label>
+    <label>Search: <input ng-model="search.$"></label>&nbsp;&nbsp;&nbsp;<label>Current Balance :  {{ expneseServiceData.currentBalance}}</label>
+    &nbsp;&nbsp;&nbsp; <label ng-show="type == 'Income'"> Total Income :   {{expMgt.income}} </label>
+      <label ng-show="type == 'Expense'"> Total Expense :   {{expMgt.expense}}</label>
+      &nbsp;&nbsp;&nbsp;<label ng-show="!showForm"><button ng-click="showTransactionForm()">Add {{currentPage}}</button></label>
     <table class="table">
         <tr>
           <th class="table-head">.</th>
@@ -86,8 +88,8 @@
           <td >{{exp.date}}</td>
           <td >{{exp.modeofpayment}}</td>
           <td >{{exp.note}}</td>
-          <td><button ng-click="editExpenseData(exp)">Edit</button></td>
-          <td><button ng-click="deleteExpenseData(exp)">Delete</button></td>
+          <td><button ng-click="updateTransaction(exp)">Edit</button></td>
+          <td><button ng-click="deleteTransaction(exp)">Delete</button></td>
         </tr>
     </table>
   </div>
