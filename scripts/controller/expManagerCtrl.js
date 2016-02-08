@@ -1,4 +1,5 @@
 app.controller('expManagerCtrl', function( $scope, expneseMgtService,expManagementFactory ){
+  console.log('expManagerCtrl');
     $scope.expDetails = {};
     $scope.buttonValue = "Add";
 
@@ -39,8 +40,7 @@ app.controller('expManagerCtrl', function( $scope, expneseMgtService,expManageme
     }
 
 })
-
-app.loadData = function( $q,$http ){
+/*app.loadData = function( $q,$http ){
 
   var defer = $q.defer();
 
@@ -55,4 +55,25 @@ app.loadData = function( $q,$http ){
           });
 
   return defer.promise;
-}
+}*/
+
+/*app.filter('trafficCalculator',function(){
+  return function(array,laneType){
+    var avarage = _.reduce(array,function(count,num){
+        return count+num;
+    },0);
+    if(avarage > 3){
+      return 'High Trafic';
+    }
+    if(avarage > 2){
+      if(laneType == 'SIGNAL'){
+        return 'Modreate Trafic';
+      }else if(laneType == 'DOUBLE'){
+        return 'Low Trafic';
+      }
+    }else{
+      return 'Lows Trafic';
+    }
+  }
+})*/
+

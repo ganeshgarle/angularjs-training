@@ -5,10 +5,8 @@ app.config(['$routeProvider',
       when('/', {
         templateUrl: 'view/home.html',
         controller: 'expManagerCtrl',
-       /* resolve: {
-            "myfun":function(){
-                console.log("ssssss");
-            }
+        /*resolve: {
+            myfun:resolvefunction
         }*/
     }).
       when('/income', {
@@ -23,3 +21,38 @@ app.config(['$routeProvider',
         redirectTo: '/'
       });
 }]);
+
+app.config(function (movieProvider) {
+  var datds = movieProvider.setVersion('Reloaded');
+  console.log( datds );
+});
+app.provider('movie', function () {
+  var version;
+  return {
+    setVersion: function (value) {
+      console.log(value);
+      version = value;
+    },
+    $get: function () {
+
+      return {
+          title: 'The Matrix' + ' ' + version
+      }
+    }
+  }
+});
+function resolvefunction($http,$q){
+  var deferred = $q.defer();
+                $http({
+                    method: 'GET',
+                    url: 'mock_api/expensedata.json'
+                }).success(function (data) {
+                  statementDetails =  data;
+                    deferred.resolve(data);
+                }).error(function (msg) {
+                    deferred.reject(msg+"error message:");
+                });
+                console.log(deferred);
+                return deferred.promise;
+
+};

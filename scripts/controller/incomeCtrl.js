@@ -1,5 +1,4 @@
 app.controller('expManagerIncomeCtrl', function( $scope, expneseMgtService,expManagementFactory ){
-  console.log("Hello");
     $scope.expDetails = {};
     $scope.buttonValue = "Add";
 
@@ -89,8 +88,6 @@ app.controller('expManagerIncomeCtrl', function( $scope, expneseMgtService,expMa
           }
         }
     }
-
-
 
     $scope.deleteExpenseData = function( obj ){
       expManagementFactory.deleteEntry($scope,obj,$scope.type);

@@ -1,4 +1,5 @@
 app.controller('expManagerExpenseCtrl', function( $scope, expneseMgtService,expManagementFactory ){
+   console.log('expManagerExpenseCtrl');
     $scope.expDetails = {};
     $scope.buttonValue = "Add";
 
@@ -99,8 +100,6 @@ app.controller('expManagerExpenseCtrl', function( $scope, expneseMgtService,expM
         }
     }
 
-
-
     $scope.deleteExpenseData = function( obj ){
       expManagementFactory.deleteEntry($scope,obj,$scope.type);
     }
@@ -112,5 +111,4 @@ app.controller('expManagerExpenseCtrl', function( $scope, expneseMgtService,expM
       $scope.type = $scope.expDetails.type;
       editValue = obj.amount;
     }
-
 })

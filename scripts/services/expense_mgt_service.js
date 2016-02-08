@@ -31,6 +31,7 @@ app.service('expneseMgtService',function( $http,$q ){
           }).error(function (msg) {
               deferred.reject(msg+"error message:");
           });
+          console.log(deferred);
           return deferred.promise;
       };
 });
