@@ -1,0 +1,8 @@
+1. All the validation logic is written in factory. This should be avoided. You can keep single service for add/update/delete data. Why two?
+   
+2. Passing scope as parameter is a very Bad practice. You have passed controller's scope to service. 
+   Also, the  scope is not just read, it is manipulating data outside the  controller. BAD. 
+
+3. Functions are to be named as per the work they perform. Saw a function "incomeDetailFunInsideFact". What on earth does that mean?
+
+4. Different views/routes should ideally have unique templates, with unique controllers. You have used same template for different controllers. This has lead to a lot of unnecessary code.
