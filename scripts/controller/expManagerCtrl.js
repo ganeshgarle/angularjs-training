@@ -9,6 +9,7 @@ app.controller('expManagerCtrl', ['$scope','expneseMgtService','expManagementFac
     $scope.expneseServiceData = {};
     $scope.expenseData;
     $scope.currentPage = "home";
+
     if( expneseMgtService.getTransactionData() == undefined ){
        /* var promise =expneseMgtService.getjson()
         .then(function(data) {
@@ -23,16 +24,17 @@ app.controller('expManagerCtrl', ['$scope','expneseMgtService','expManagementFac
         expneseMgtService.getTransactionDataFromMockApi().then(function(data){
           console.log(data);
           $scope.expneseServiceData = data;
-           expManagementFactory.incomeDetailFun($scope,$scope.currentPage);
+          console.log( $scope.expneseServiceData );
+          $scope.expenseData = expManagementFactory.getTrasanctionData( $scope.expneseServiceData, $scope.currentPage );
         });
 
     }else{
         $scope.expneseServiceData = expneseMgtService.getTransactionData();
-        expManagementFactory.incomeDetailFun($scope,$scope.currentPage);
+        $scope.expenseData = expManagementFactory.getTrasanctionData( $scope.expneseServiceData, $scope.currentPage );
     }
 
     $scope.deleteTransaction = function( obj,type ){
-      expManagementFactory.deleteTransaction($scope,obj,type,$scope.currentPage);
+      $scope.expenseData = expManagementFactory.deleteTransaction( $scope.expneseServiceData, obj, type, $scope.currentPage );
     }
     var editValue = "";
     $scope.updateTransaction = function( obj ){

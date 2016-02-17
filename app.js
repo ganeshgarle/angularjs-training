@@ -22,6 +22,36 @@ app.config(['$routeProvider',
       });
 }]);
 
+
+/*var interceptors =  function($q){
+  return{
+    request: function(config){
+      console.log(config);
+      return config;
+    },
+
+    response: function(result){
+        console.log('respo');
+        console.log(result);
+        //result.data.splice(0,10).forEach(function(repo){
+        //  console.log(respo.name);
+       // })
+        return result;
+    },
+
+    responseError: function(rejection){
+        console.log('Failed With',rejection.status,'status');
+        return $q.reject(rejection);
+    }
+  }
+}*/
+/*
+app.config(function($httpProvider){
+   $httpProvider.interceptors.push(interceptors);
+   console.log($httpProvider);
+}).run(function($http){
+   $http.get('mock_api/expensedata.json');
+})*/
 /*app.config(function (movieProvider) {
   var datds = movieProvider.setVersion('Reloaded');
   console.log( datds );

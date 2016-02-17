@@ -1,8 +1,7 @@
 app.controller('expManagerExpenseCtrl', ['$scope','expneseMgtService','expManagementFactory', function( $scope, expneseMgtService,expManagementFactory ){
-   console.log('expManagerExpenseCtrl');
+
     $scope.expDetails = {};
     $scope.buttonValue = "Add";
-
     $scope.categoryType = [ 'Rent', 'Light Bill', 'Internet Bill', 'Recharge', 'Other' ];
     $scope.modeofPayment = [ 'Credit Card', 'Cash', 'Net Banking' ];
     $scope.expenseData = [];
@@ -10,39 +9,31 @@ app.controller('expManagerExpenseCtrl', ['$scope','expneseMgtService','expManage
     var errorIs = true;
     $scope.currentPage = "Expense"
     $scope.showForm = false;
-/*
-    $scope.expenceType = [{
-        type:'Income',isDefault:true
-      },
-      {
-       type:'Expense',isDefault:false
-      }];
-*/
     $scope.type = 'Expense';
     var transactionId = 0;
+    var data = {};
+    var editValue = "";
 
-    $scope.showTransactionForm = function(){
-      $scope.showForm = true;
-    }
-   if( expneseMgtService.getTransactionData() == undefined ){
-        expneseMgtService.getTransactionDataFromMockApi().then(function(data){
-          console.log(data);
-          $scope.expneseServiceData = data;
-           expManagementFactory.incomeDetailFun($scope,$scope.currentPage);
+    if( expneseMgtService.getTransactionData() == undefined ){
+          expneseMgtService.getTransactionDataFromMockApi().then(function(data){
+              $scope.expneseServiceData = data;
+              $scope.expenseData = expManagementFactory.getTrasanctionData($scope.expneseServiceData,$scope.currentPage);
         });
     }else{
         $scope.expneseServiceData = expneseMgtService.getTransactionData();
-        expManagementFactory.incomeDetailFun($scope,$scope.type);
-       // $scope.incomeDetailFun();
+        $scope.expenseData = expManagementFactory.getTrasanctionData($scope.expneseServiceData,$scope.type);
     }
 
-    $scope.clear = function(){
+    $scope.clearForm = function(){
       $scope.expDetails = "";
-     // $scope.buttonValue = "Add";
+    }
+    $scope.showTransactionForm = function(){
+      $scope.showForm = true;
     }
     $scope.hideTransactionForm = function(){
       $scope.showForm = false;
     }
+
     $scope.errors = {
         'requiredPayerName': false,
         'requiredPayeeName': false,
@@ -53,62 +44,57 @@ app.controller('expManagerExpenseCtrl', ['$scope','expneseMgtService','expManage
          'note': false,
          'noteLength': false
     };
-  //  $scope.errors.requiredPayerName = a.trim().length > 1 ? true : false;
 
-
-    var data = {};
     $scope.addTransaction = function() {
-        if( expManagementFactory.checkValidations($scope) ){
-          errorIs = true;
+        if( expManagementFactory.checkValidations( $scope.expDetails ) ){
+            errorIs = true;
         }else {
-          if( $scope.expneseServiceData.expensesData.length > 1 ){
-              transactionId = $scope.expneseServiceData.expensesData.length;
-          }
-          transactionId = expManagementFactory.createTransactionId(transactionId,$scope.expneseServiceData.expensesData);
-          errorIs = false;
-          data = {
-              "transactionId":transactionId,
-              "amount":$scope.expDetails.amount,
-              "categorytype":$scope.expDetails.categorytype,
-              "date":$scope.expDetails.date,
-              "modeofpayment":$scope.expDetails.modeofpayment,
-              "note":$scope.expDetails.note,
-              "payee":$scope.expDetails.payee,
-              "payer":$scope.expDetails.payer,
-              "type":$scope.type
-          }
-        }
-
-        if( !errorIs ) {
-          if( $scope.buttonValue == "Edit" ){
-              if( !expManagementFactory.checkValidations($scope) ){
-                    if( expManagementFactory.editTransaction($scope,$scope.type) ){
-                        $scope.buttonValue = "Add";
-                        $scope.showForm = false;
-                    }
-                }
-          }else{
-            if( expManagementFactory.incomeCalculationFun($scope) ){
-                $scope.expneseServiceData.expensesData.push( data );
-                $scope.expneseServiceData.expensesData.reverse();
-                expneseMgtService.saveTransaction( $scope.expneseServiceData );
-                expManagementFactory.incomeDetailFun($scope,$scope.type);
-                alert( "Record Added Successfully...!" );
-                $scope.expDetails = "";
-                $scope.showForm = false;
-            }else{
-               alert( "Expense amount is more than balance amount...!" );
+            if( $scope.expneseServiceData.expensesData.length > 1 ){
+                transactionId = $scope.expneseServiceData.expensesData.length;
             }
-
-          }
+            transactionId = expManagementFactory.createTransactionId(transactionId,$scope.expneseServiceData.expensesData);
+            errorIs = false;
+            data = {
+                "transactionId":transactionId,
+                "amount":$scope.expDetails.amount,
+                "categorytype":$scope.expDetails.categorytype,
+                "date":$scope.expDetails.date,
+                "modeofpayment":$scope.expDetails.modeofpayment,
+                "note":$scope.expDetails.note,
+                "payee":$scope.expDetails.payee,
+                "payer":$scope.expDetails.payer,
+                "type":$scope.type
+            }
         }
+        if( !errorIs ) {
+            if( $scope.buttonValue == "Edit" ){
+                if( !expManagementFactory.checkValidations($scope) ){
+                      if( expManagementFactory.editTransaction($scope.expneseServiceData, $scope.expDetails, $scope.type) ){
+                          $scope.buttonValue = "Add";
+                          $scope.showForm = false;
+                          $scope.expDetails = "";
+                      }
+                  }
+            }else{
+                if( expManagementFactory.balanceCalculation($scope.type, $scope.expneseServiceData, $scope.expDetails ) ){
+                    $scope.expneseServiceData.expensesData.push( data );
+                    $scope.expneseServiceData.expensesData.reverse();
+                    expneseMgtService.saveTransaction( $scope.expneseServiceData );
+                    $scope.expenseData = expManagementFactory.getTrasanctionData($scope.expneseServiceData,$scope.type);
+                    alert( "Record Added Successfully...!" );
+                    $scope.expDetails = "";
+                    $scope.showForm = false;
+                }else{
+                   alert( "Expense amount is more than balance amount...!" );
+                }
+            }
+          }
     }
 
     $scope.deleteTransaction = function( obj ){
-      expManagementFactory.deleteTransaction($scope,obj,$scope.type);
+        $scope.expenseData = expManagementFactory.deleteTransaction($scope.expneseServiceData,obj,$scope.type);
     }
 
-    var editValue = "";
     $scope.updateTransaction = function( obj ){
       $scope.showForm = true;
       $scope.buttonValue = "Edit";
@@ -116,4 +102,5 @@ app.controller('expManagerExpenseCtrl', ['$scope','expneseMgtService','expManage
       $scope.type = $scope.expDetails.type;
       editValue = obj.amount;
     }
+
 }]);

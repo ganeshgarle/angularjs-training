@@ -1,8 +1,8 @@
 
   <div ng-show="expenseData.length != 0" >
       <label>Search: <input ng-model="search.$"></label>&nbsp;&nbsp;<label> Balance:{{expneseServiceData.currentBalance}}</label>&nbsp;&nbsp;
-    <label>Total Income: </label> {{expMgt.income}}&nbsp;&nbsp;
-    <label>Total Expense: </label>{{expMgt.expense}}
+    <label>Total Income: </label> {{expenseData.expenseObject.income}}&nbsp;&nbsp;
+    <label>Total Expense: </label>{{expenseData.expenseObject.expense}}
     <table class="table">
         <tr>
           <th class="table-head">.</th>

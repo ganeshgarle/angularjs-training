@@ -27,12 +27,10 @@ app.service('expneseMgtService',function( $http,$q ){
               url: 'mock_api/expensedata.json'
           }).success(function (data) {
             statementDetails =  data;
-            console.log(statementDetails);
               deferred.resolve(data);
           }).error(function (msg) {
               deferred.reject(msg+"error message:");
           });
-          console.log(deferred);
           return deferred.promise;
       };
 });
