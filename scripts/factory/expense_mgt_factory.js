@@ -62,14 +62,19 @@ app.factory('expManagementFactory', function(expneseMgtService) {
   }
 
   factory.deleteTransaction = function(expneseServiceData,obj,type,ctrl){
+
       var balance = 0;
       if(type == "Expense"){
           balance = parseInt( expneseServiceData.currentBalance ) + parseInt( obj.amount );
       }else{
           balance = parseInt( expneseServiceData.currentBalance ) - parseInt( obj.amount );
       }
+      if(ctrl == 'home'){
+        type = ctrl;
+      }
       if(balance < 0 ){
-          alert("Your balance is very low....!")
+          alert("Your balance is very low....!");
+          return factory.getTrasanctionData( expneseServiceData, type );
       }else{
           var result = confirm("Do you want to delete this transaction ? ");
           if (result) {

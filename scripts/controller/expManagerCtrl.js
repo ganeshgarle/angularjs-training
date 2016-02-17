@@ -11,20 +11,8 @@ app.controller('expManagerCtrl', ['$scope','expneseMgtService','expManagementFac
     $scope.currentPage = "home";
 
     if( expneseMgtService.getTransactionData() == undefined ){
-       /* var promise =expneseMgtService.getjson()
-        .then(function(data) {
-
-        }, function(error) {
-           return error;
-        })
-        .finally(function() {
-          console.log('Finished at:', new Date())
-        });
-*/
         expneseMgtService.getTransactionDataFromMockApi().then(function(data){
-          console.log(data);
           $scope.expneseServiceData = data;
-          console.log( $scope.expneseServiceData );
           $scope.expenseData = expManagementFactory.getTrasanctionData( $scope.expneseServiceData, $scope.currentPage );
         });
 
