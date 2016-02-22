@@ -1,0 +1,20 @@
+
+         <div class="upcoming-transaction" ng-repeat="upcomingdata in data ">
+             <div>{{$index + 1}} : {{upcomingdata.payer}}</div>
+              <div class="upcoming-transaction-data">
+                <div>{{upcomingdata.type}}</div>
+                <div >{{upcomingdata.categorytype}}</div>
+                <div >{{upcomingdata.amount}} Rs.</div>
+                <div >{{upcomingdata.date}}</div>
+                <div ><button class="upcoming-transaction-addbtn" ng-click="addUpcomingData(upcomingdata.type,upcomingdata.upcomingtransactionId)">Add</button></div>
+            </div>
+          </div>
+     <!--      <div class="upcoming-transaction">
+             <div ><input type="text" ng-model="upcomingData.payer" placeholder="Enter Payer Name" >  </div>
+             <div><input type="text" ng-model="upcomingData.type">  </div>
+             <div><input type="text" ng-model="upcomingData.categorytype">  </div>
+             <div><input type="text" ng-model="upcomingData.amout" >  </div>
+             <div><input type="text" ng-model="upcomingData.date" placeholder="Date dd/mm/yyyy">  </div>
+             <div ><button class="upcoming-transaction-addbtn" ng-click="addUpcomingData(upcomingdata.type,upcomingdata.upcomingtransactionId)">Add</button></div>
+           </div> -->
+
