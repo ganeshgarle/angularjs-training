@@ -29,15 +29,20 @@ angular
         controller: 'ExpensecontrollerCtrl',
         controllerAs: 'expnese'
       })
-       .when('/income/:id', {
+       .when('/settings', {
+        templateUrl: 'views/settings.html',
+        controller: 'SettingscontrollerCtrl',
+        controllerAs: 'settings'
+      })
+       .when('/Income/:id', {
         templateUrl: 'views/income-expense.html',
         controller: 'IncomecontrollerCtrl',
-        controllerAs: 'income'
+        controllerAs: 'Income'
       })
-        .when('/expenses/:id', {
+        .when('/Expenses/:id', {
         templateUrl: 'views/income-expense.html',
         controller: 'ExpensecontrollerCtrl',
-        controllerAs: 'expenses'
+        controllerAs: 'Expenses'
       })
       .otherwise({
         redirectTo: '/'

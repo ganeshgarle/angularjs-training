@@ -9,17 +9,12 @@ describe('Controller: ExpensecontrollerCtrl', function () {
     scope,routeParams,location,expenseapiservice,expnesedatafactory;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope,$routeParams,$location,ExpenseApiService,ExpenseDataFactory) {
+  beforeEach(inject(function ( $controller, $rootScope ) {
+    console.log('In inject function ');
     scope = $rootScope.$new();
-    routeParams = $routeParams;
-    location = $location;
-    expenseapiservice = ExpenseApiService;
-    expnesedatafactory = ExpenseDataFactory;
 
     ExpensecontrollerCtrl = $controller('ExpensecontrollerCtrl', {
-      $scope: scope,
-      $routeParams: routeParams,
-      $location:location
+      $scope: scope
       // place here mocked dependencies
     });
   }));

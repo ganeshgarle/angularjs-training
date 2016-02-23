@@ -23,12 +23,6 @@ angular.module('expenseManagementApp')
     var data = {};
     var editValue = "";
     var upcomingDataObj = "";
-
-     $scope.z = 0;
-    $scope.sum = function() {
-      $scope.z = $scope.x + $scope.y;
-    };
-
     if( ExpenseApiService.getTransactionData() == undefined ){
           ExpenseApiService.getTransactionDataFromMockApi().then(function(data){
               $scope.expneseServiceData = data;
@@ -106,6 +100,18 @@ angular.module('expenseManagementApp')
                 if( ExpenseDataFactory.balanceCalculation($scope.type, $scope.expneseServiceData, $scope.expDetails ) ){
                     $scope.expneseServiceData.expensesData.push( data );
                     $scope.expneseServiceData.expensesData.reverse();
+                    if( upcomingDataObj.length != 0 ){
+                        var index = $scope.expneseServiceData.upcomingTransactionData.indexOf( upcomingDataObj );
+                        $scope.expneseServiceData.upcomingTransactionData.splice( index, 1 );
+                        var parts = upcomingDataObj.date.split("/");
+                        var changeMonth = parseInt(parts[1]) + 1;
+                        if( changeMonth > 12 ){
+                          changeMonth = '01';
+                        }
+                        var changeDate = parts[0]+"/"+ changeMonth+"/"+parts[2];
+                        upcomingDataObj.date = changeDate;
+                        $scope.expneseServiceData.upcomingTransactionData.push( upcomingDataObj );
+                    }
                     ExpenseApiService.saveTransaction( $scope.expneseServiceData );
                     $scope.expenseData = ExpenseDataFactory.getTrasanctionData($scope.expneseServiceData,$scope.type);
                     alert( "Record Added Successfully...!" );

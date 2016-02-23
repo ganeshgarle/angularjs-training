@@ -44,15 +44,25 @@ li:hover {
 }
 .upcoming-transaction{
     background-color: lightblue;
-    width: 200px;
     display:inline-block;
     border: solid 1px;
     margin: 5px;
+    padding: 10px;
 
 }
 .upcoming-transaction-addbtn{
     margin-bottom: 5px;
+    display: inline-flex;
 }
 .upcoming-transaction-data{
   margin-left: 22px;
+}
+.upcoming-transaction-newdata{
+  margin-left: 40px;
+  padding: 5px;
+  margin-top: 5px;
+  display: inline-flex;
+}
+.upcoming-transaction-field{
+      margin-top: 15px
 }

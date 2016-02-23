@@ -43,21 +43,21 @@
                <li ng-class="{'active': selectedTab == 'home'}" ng-click="selectTabs('home')"><a href="#/">Expnese Managment</a></li>
               <li ng-class="{'active': selectedTab == 'Income'}" ng-click="selectTabs('Income')"><a ng-href="#/income">Income</a></li>
               <li ng-class="{'active': selectedTab == 'Expenses'}" ng-click="selectTabs('Expenses')"><a ng-href="#/expenses">Expenses</a></li>
+              <li ng-class="{'active': selectedTab == 'Settings'}" ng-click="selectTabs('Settings')"><a ng-href="#/settings">Settings</a></li>
 
             </ul>
           </div>
         </div>
       </div>
 
-    <div class="container">
+    <div class="container-fluid">
     <div ng-view=""></div>
+    <div class="footer">
+        <p><span class="glyphicon glyphicon-heart"></span> from the expense managment team</p>
+    </div>
     </div>
 
-    <div class="footer">
-      <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> from the expense managment team</p>
-      </div>
-    </div>
+
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -74,8 +74,7 @@
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.min.js"></script>
-    <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
@@ -96,6 +95,7 @@
         <script src="scripts/directives/upcomingtransactiondirective.js"></script>
         <script src="scripts/directives/datepickerdirective.js"></script>
         <script src="bower_components/bootstrap-datepicker.js"></script>
+        <script src="scripts/controllers/settingscontroller.js"></script>
         <!-- endbuild -->
 </body>
 </html>

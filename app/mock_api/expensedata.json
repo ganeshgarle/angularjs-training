@@ -58,15 +58,15 @@
             "categorytype" : "Other",
             "date" : "01/03/2016",
             "payer" : "Rahul Roy",
-            "type" : "income"
+            "type" : "Income"
         },
          {
             "upcomingtransactionId" : 2,
             "amount" : "1000",
             "categorytype" : "Other",
-            "date" : "01/01/2016",
+            "date" : "01/12/2016",
             "payer" : "Rahul Raj",
-            "type" : "income"
+            "type" : "Income"
         },
          {
             "upcomingtransactionId" : 3,
@@ -74,7 +74,7 @@
             "categorytype" : "Other",
             "date" : "05/03/2016",
             "payer" : "Kunal",
-            "type" : "expenses"
+            "type" : "Expenses"
         },
          {
             "upcomingtransactionId" : 4,
@@ -82,7 +82,39 @@
             "categorytype" : "Other",
             "date" : "01/01/2016",
             "payer" : "Kamal",
-            "type" : "income"
+            "type" : "Income"
+        },
+        {
+            "upcomingtransactionId" : 5,
+            "amount" : "1000",
+            "categorytype" : "Other",
+            "date" : "01/03/2016",
+            "payer" : "Rahul Roy",
+            "type" : "Income"
+        },
+         {
+            "upcomingtransactionId" : 6,
+            "amount" : "1000",
+            "categorytype" : "Other",
+            "date" : "01/05/2016",
+            "payer" : "Rahul Raj",
+            "type" : "Income"
+        },
+         {
+            "upcomingtransactionId" : 7,
+            "amount" : "1000",
+            "categorytype" : "Other",
+            "date" : "05/03/2016",
+            "payer" : "Kunal",
+            "type" : "Expenses"
+        },
+         {
+            "upcomingtransactionId" : 8,
+            "amount" : "1000",
+            "categorytype" : "Other",
+            "date" : "01/01/2016",
+            "payer" : "Kamal",
+            "type" : "Income"
         }
      ]
 

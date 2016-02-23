@@ -1,5 +1,4 @@
-  <div class="container">
-    <upcoming-trasanction></upcoming-trasanction>
+  <div class="container-fluid" style="background-color:lavenderblush;">
     <form name="expensedetailForm" ng-show="showForm || expenseData.length == 0">
         <p>
         <label> Payer</label>
@@ -48,12 +47,12 @@
        <input type="button" class="btn cancel" ng-click="hideTransactionForm()" value="Cancel" />
     </p>
   </form>
-  <div ng-show="expenseData.length != 0">
+  <div ng-show="expenseData.length != 0" align="center">
       <label>Search: <input ng-model="search.$" id="searchBox"></label>&nbsp;&nbsp;<label>Current Balance :  {{ expneseServiceData.currentBalance}}</label>
       &nbsp;&nbsp;&nbsp; <label ng-show="type == 'Income'"> Total Income :   {{expenseData.expenseObject.income}} </label>
       <label ng-show="type == 'Expense'"> Total Expense :   {{expenseData.expenseObject.expense}}</label>
       &nbsp;&nbsp;&nbsp;<label ng-show="!showForm"><button ng-click="showTransactionForm()">Add {{currentPage}}</button></label>
-     <table class="table">
+     <table class="table" style="width:105px;" >
          <tr>
             <th class="table-head">.</th>
             <th  class="table-head">Type</th>

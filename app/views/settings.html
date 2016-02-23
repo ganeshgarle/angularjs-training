@@ -1,0 +1,26 @@
+  <div class="container" style="background-color:lavender;">
+      <label>Expense notification panel</label>
+      <div class="upcoming-transaction-data">
+         <div class="upcoming-transaction-field"><input type="upcomingData.payer" ng-model="upcomingData.payer" class="form-control"placeholder="Payer name"><span class="error-color" ng-show="errors.requiredPayerName">Payer Name</span></div>
+        <div class="upcoming-transaction-field"><select name="categorytype" class="form-control" ng-model="upcomingData.type" ng-options="c for c in trasactionType" placeholder="Payer categorytype" required>
+            <option value="">-- Type --</option> </select>
+            <span class="error-color" ng-show="errors.requiredType">Select Type</span></div>
+        <div class="upcoming-transaction-field">
+           <select name="categorytype" class="form-control" ng-model="upcomingData.categorytype" ng-options="c for c in categoryType" placeholder="Payer categorytype" required>
+            <option value="">-- Category Type --</option> </select>
+            <span class="error-color" ng-show="errors.requiredCatName">Select Category</span>
+         </div>
+        <div class="upcoming-transaction-field">
+         <input type="text" class="form-control" placeholder="Enter Numeric value" name="amount"
+        ng-model="upcomingData.amount" required ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" />
+        <span class="error-color" ng-show="errors.requiredAmount">Positive Numbers only, please.</span>
+
+        </div>
+        <div class="upcoming-transaction-field"><input type="text" class="form-control" datepicker-directive="" datepicker-directive="" name="dates" ng-model="upcomingData.date" dp-format="dd/mm/yyyy" required placeholder="select date" />
+        <span class="error-color" ng-show="errors.requiredDate">Select Date</span></div>
+    </div>
+    <div class="upcoming-transaction-newdata">
+        <button class="form-control" ng-click="addNewUpcomingData()">Add</button>
+        <button class="form-control" ng-click="cancel()">Cancel</button>
+    </div>
+  </div>
