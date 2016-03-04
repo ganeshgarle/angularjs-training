@@ -15,10 +15,11 @@ angular.module('expenseManagementApp')
     $scope.modeofPayment = [ 'Credit Card', 'Cash', 'Net Banking' ];
     $scope.expenseData = [];
     $scope.expneseServiceData = {};
-    var errorIs = true;
+    $scope.errorIs = true;
     $scope.currentPage = "Expense"
     $scope.showForm = false;
     $scope.type = 'Expense';
+    $scope.addedSuccess = false;
     var transactionId = 0;
     var data = {};
     var editValue = "";
@@ -59,21 +60,20 @@ angular.module('expenseManagementApp')
         'requiredPayeeName': false,
         'requiredCatName': false,
         'requiredAmount': false,
-         'requiredDate': false,
-         'modeofPayment': false,
-         'note': false,
-         'noteLength': false
+        'requiredDate': false,
+        'modeofPayment': false,
+        'note': false,
+        'noteLength': false
     };
-
     $scope.addTransaction = function() {
         if( ExpenseDataFactory.checkValidations( $scope.expDetails ) ){
-            errorIs = true;
+            $scope.errorIs = true;
         }else {
             if( $scope.expneseServiceData.expensesData.length > 1 ){
                 transactionId = $scope.expneseServiceData.expensesData.length;
             }
             transactionId = ExpenseDataFactory.createTransactionId(transactionId,$scope.expneseServiceData.expensesData);
-            errorIs = false;
+            $scope.errorIs = false;
             data = {
                 "transactionId":transactionId,
                 "amount":$scope.expDetails.amount,
@@ -86,7 +86,7 @@ angular.module('expenseManagementApp')
                 "type":$scope.type
             }
         }
-        if( !errorIs ) {
+        if( !$scope.errorIs ) {
             if( $scope.buttonValue == "Edit" ){
                 if( !ExpenseDataFactory.checkValidations($scope) ){
                       if( ExpenseDataFactory.editTransaction($scope.expneseServiceData, $scope.expDetails, $scope.type) ){
@@ -118,6 +118,7 @@ angular.module('expenseManagementApp')
                     $scope.expDetails = "";
                     $scope.showForm = false;
                     $location.url("expenses");
+                     $scope.addedSuccess = true;
                 }else{
                    alert( "Expense amount is more than balance amount...!" );
                 }
@@ -125,8 +126,17 @@ angular.module('expenseManagementApp')
           }
     }
 
-    $scope.deleteTransaction = function( obj ){
-        $scope.expenseData = ExpenseDataFactory.deleteTransaction($scope.expneseServiceData,obj,$scope.type);
+    $scope.deleteTransaction = function( objId ){
+        $scope.expenseData = ExpenseDataFactory.deleteTransaction($scope.expneseServiceData,objId,$scope.type);
+        $scope.addedSuccess = $scope.expenseData.delete;
+        if($scope.addedSuccess){
+          $scope.addedSuccess = true;
+         console.log( "Delete Successfull..!" );
+        }else{
+          $scope.addedSuccess = false;
+          console.log( "Record Is Not Delete!" );
+        }
+        delete $scope.expenseData.delete;
         $location.url("expenses");
     }
 

@@ -77,7 +77,7 @@
             <td >{{exp.modeofpayment}}</td>
             <td >{{exp.note}}</td>
             <td><button ng-click="updateTransaction(exp)">Edit</button></td>
-            <td><button ng-click="deleteTransaction(exp)">Delete</button></td>
+            <td><button ng-click="deleteTransaction(exp.transactionId)">Delete</button></td>
           </tr>
       </table>
     </div>

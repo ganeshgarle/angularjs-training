@@ -26,11 +26,11 @@
           <td >{{exp.date}}</td>
           <td >{{exp.modeofpayment}}</td>
           <td >{{exp.note}}</td>
-          <td><button ng-click="deleteTransaction(exp,exp.type)">Delete</button></td>
+          <td><button ng-click="deleteTransaction(exp.transactionId,exp.type)">Delete</button></td>
 
         </tr>
 
     </table></div>
-    <div class="col-sm-4" style="background-color:lavender;">    <div  upcoming-transaction-template data='expneseServiceData.upcomingTransactionData'></div></div>
+    <div class="col-sm-4" style="background-color:lavender;"><div  upcoming-transaction-template data='expneseServiceData.upcomingTransactionData'></div></div>
   </div>
 </div>

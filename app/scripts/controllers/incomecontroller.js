@@ -128,9 +128,18 @@ angular.module('expenseManagementApp')
         }
     }
 
-    $scope.deleteTransaction = function( obj ){
-      $scope.expenseData = ExpenseDataFactory.deleteTransaction($scope.expneseServiceData,obj,$scope.type);
-      $location.url("income");
+    $scope.deleteTransaction = function( objId ){
+       $scope.expenseData = ExpenseDataFactory.deleteTransaction($scope.expneseServiceData,objId,$scope.type);
+        $scope.addedSuccess = $scope.expenseData.delete;
+        if($scope.addedSuccess){
+          $scope.addedSuccess = true;
+         console.log( "Delete Successfull..!" );
+        }else{
+          $scope.addedSuccess = false;
+          console.log( "Record Is Not Delete!" );
+        }
+        delete $scope.expenseData.delete;
+        $location.url("income");
     }
 
     $scope.updateTransaction = function( obj ){

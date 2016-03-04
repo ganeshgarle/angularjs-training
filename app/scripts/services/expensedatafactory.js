@@ -73,42 +73,62 @@ angular.module('expenseManagementApp')
         }
     };
 
-    factory.deleteTransaction = function(expneseServiceData,obj,type,ctrl){
+    factory.deleteTransaction = function(expneseServiceData,objID,type,ctrl){
 
         var balance = 0;
-        if(type === "Expense"){
-            balance = parseInt( expneseServiceData.currentBalance ) + parseInt( obj.amount );
-        }else{
-            balance = parseInt( expneseServiceData.currentBalance ) - parseInt( obj.amount );
-        }
-        if(ctrl === 'home'){
-          type = ctrl;
-        }
-        if(balance < 0 ){
-            alert( "Your balance is very low....!" );
-            return factory.getTrasanctionData( expneseServiceData, type );
-        }else{
-            var result = confirm("Do you want to delete this transaction ? ");
-            if (result) {
-                expneseServiceData.currentBalance = balance;
-                var index = expneseServiceData.expensesData.indexOf( obj );
-                expneseServiceData.expensesData.splice( index, 1 );
-                ExpenseApiService.saveTransaction( expneseServiceData );
-                if( ctrl === "home" ){
-                    var  expenseData = expneseServiceData.expensesData;
-                    var expenseDetails = calculateIcomeAndExpense(expneseServiceData);
-                    expneseServiceData.currentBalance = parseInt( expenseDetails.income ) - parseInt( expenseDetails.expense );
-                    expenseData.expenseObject = calculateIcomeAndExpense(expneseServiceData);
-                    return expenseData;
-               }else{
-                    return factory.getTrasanctionData( expneseServiceData, type );
-               }
+        var obj = search(objID,expneseServiceData.expensesData);
+        console.log(obj);
+        if( obj != undefined ){
+            if(type === "Expense"){
+                balance = parseInt( expneseServiceData.currentBalance ) + parseInt( obj.amount );
             }else{
-                return factory.getTrasanctionData( expneseServiceData, type );
+                balance = parseInt( expneseServiceData.currentBalance ) - parseInt( obj.amount );
             }
-        }
-    };
+            if(ctrl === 'home'){
+              type = ctrl;
+            }
+            if(balance < 0 ){
+                alert( "Your balance is very low....!" );
+                return factory.getTrasanctionData( expneseServiceData, type );
+            }else{
+                var result = confirm("Do you want to delete this transaction ? "),index,expenseData,expenseDetails;
+                if (result) {
+                    expneseServiceData.currentBalance = balance;
 
+                    index = expneseServiceData.expensesData.indexOf( obj );
+                    expneseServiceData.expensesData.splice( index, 1 );
+                    ExpenseApiService.saveTransaction( expneseServiceData );
+                    if( ctrl === "home" ){
+                        expenseData = expneseServiceData.expensesData;
+                        expenseDetails = calculateIcomeAndExpense(expneseServiceData);
+                        expneseServiceData.currentBalance = parseInt( expenseDetails.income ) - parseInt( expenseDetails.expense );
+                        expenseData.expenseObject = calculateIcomeAndExpense(expneseServiceData);
+                        expenseData.delete= true;
+                        return expenseData;
+                   }else{
+                    expenseData = factory.getTrasanctionData( expneseServiceData, type );
+                    expenseData.delete= true;
+                        return expenseData;
+                   }
+                }else{
+                    expenseData = factory.getTrasanctionData( expneseServiceData, type );
+                    expenseData.delete= false;
+                    return expenseData;
+                }
+            }
+         }else{
+            expenseData = factory.getTrasanctionData( expneseServiceData, type );
+            expenseData.delete= false;
+            return expenseData;
+         }
+    };
+    function search(id,arrays){
+    for(var i =0;i<arrays.length;i++){
+      if(arrays[i].transactionId == id){
+        return arrays[i];
+      }
+    }
+   }
     factory.editTransaction = function(expneseServiceData,expDetails,type){
         for( var i = 0; i < expneseServiceData.expensesData.length; i++ ){
           if( expneseServiceData.expensesData[i].transactionId === expDetails.transactionId  ){

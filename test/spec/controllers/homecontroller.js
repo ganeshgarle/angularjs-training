@@ -15,7 +15,6 @@ describe('Controller: HomecontrollerCtrl', function () {
       $scope: scope
       // place here mocked dependencies
     });
-    console.log( $scope.expneseServiceData );
   }));
 
   /*it('should attach a list of awesomeThings to the scope', function () {

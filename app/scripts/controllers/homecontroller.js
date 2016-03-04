@@ -35,8 +35,19 @@ angular.module('expenseManagementApp')
         $scope.expenseData = ExpenseDataFactory.getTrasanctionData( $scope.expneseServiceData, $scope.currentPage );
     }
 
-    $scope.deleteTransaction = function( obj,type ){
-      $scope.expenseData = ExpenseDataFactory.deleteTransaction( $scope.expneseServiceData, obj, type, $scope.currentPage );
+    $scope.deleteTransaction = function( objId,type ){
+      // $scope.expenseData = ExpenseDataFactory.deleteTransaction( $scope.expneseServiceData, obj, type, $scope.currentPage );
+
+      $scope.expenseData = ExpenseDataFactory.deleteTransaction($scope.expneseServiceData,objId,type, $scope.currentPage);
+        $scope.addedSuccess = $scope.expenseData.delete;
+        if($scope.addedSuccess){
+          $scope.addedSuccess = true;
+         console.log( "Delete Successfull..!" );
+        }else{
+          $scope.addedSuccess = false;
+          console.log( "Record Is Not Delete!" );
+        }
+        delete $scope.expenseData.delete;
     }
     var editValue = "";
     $scope.updateTransaction = function( obj ){
@@ -46,7 +57,6 @@ angular.module('expenseManagementApp')
       editValue = obj.amount;
     }
     $scope.deleteUpcomingData = function(upcomingdataObj){
-      console.log(upcomingdataObj);
        var index = $scope.expneseServiceData.upcomingTransactionData.indexOf( upcomingdataObj );
         $scope.expneseServiceData.upcomingTransactionData.splice( index, 1 );
         ExpenseApiService.saveTransaction( $scope.expneseServiceData );
@@ -57,7 +67,6 @@ angular.module('expenseManagementApp')
 
     $scope.showNewUpcomingDataForm = function(){
        $scope.showNewModal = !$scope.showNewModal;
-       console.log( $scope.expneseServiceData.upcomingTransactionData.length );
        if($scope.expneseServiceData.upcomingTransactionData.length == 0){
                 $scope.showNewModal = true;
         }

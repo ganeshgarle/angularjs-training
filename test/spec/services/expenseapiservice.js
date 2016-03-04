@@ -11,8 +11,10 @@ describe('Service: ExpenseApiService', function () {
     ExpenseApiService = _ExpenseApiService_;
   }));
 
-  /*it('should do something', function () {
+   it('should do something', function () {
+    console.log('in service');
+
     expect(!!ExpenseApiService).toBe(true);
-  });*/
+  });
 
 });
